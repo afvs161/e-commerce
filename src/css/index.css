@@ -1,0 +1,134 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.my-header {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+}
+
+.my-subMenu {
+	/* margin-top: 15px !important; */
+}
+
+.my-subMenu a {
+	color: #fff;
+}
+
+.navMenu {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	background: transparent;
+}
+
+.navMenu a {
+	color: #f6f4e6;
+	text-decoration: none;
+	font-size: 1.2em;
+	text-transform: uppercase;
+	font-weight: 500;
+	display: inline-block;
+	width: 80px;
+	transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:hover {
+	color: #fddb3a;
+}
+
+.navMenu .dot {
+	width: 6px;
+	height: 6px;
+	background: #fddb3a;
+	border-radius: 50%;
+	opacity: 0;
+	transform: translateX(25px);
+	margin-top: -10px;
+	transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:nth-child(1):hover ~ .dot {
+	transform: translateX(25px);
+	transition: all 0.2s ease-in-out;
+	opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover ~ .dot {
+	transform: translateX(105px);
+	transition: all 0.2s ease-in-out;
+	opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover ~ .dot {
+	transform: translateX(190px);
+	transition: all 0.2s ease-in-out;
+	opacity: 1;
+}
+
+.navMenu a:nth-child(4):hover ~ .dot {
+	transform: translateX(285px);
+	transition: all 0.2s ease-in-out;
+	opacity: 1;
+}
+
+.my-content {
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
+
+.f-shadow {
+	background: #272727 !important;
+}
+
+.n-shadow {
+	background: #272727 !important;
+	min-height: 50px;
+	line-height: 35px;
+	padding-top: 20px;
+}
+
+.cardWrapper {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+}
+
+.categoryName {
+	color: black;
+	text-transform: uppercase;
+	transition: all 0.1s ease-in-out;
+}
+
+.categoryName:hover {
+	text-decoration: underline;
+	text-shadow: 2px 4px 3px #fff;
+}
+
+.active {
+	text-shadow: 2px 4px 3px #fff;
+}
+
+.toggleModal {
+	position: fixed;
+	top: 4.5rem;
+	right: 1rem;
+	color: #fff;
+	background-color: rgb(0 0 0 / 80%);
+	box-shadow: 2px 4px 3px rgb(0 0 0 / 80%);
+	cursor: pointer;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	border-radius: 4px;
+	transition: all 0.2s ease-in-out;
+	z-index: 6;
+}
+
+.toggleModal:hover {
+	box-shadow: 2px 4px 5px rgb(0 0 0 / 80%);
+}

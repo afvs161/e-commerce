@@ -1,0 +1,63 @@
+* {
+	--apple-bg-color: #f5f5f7;
+	--item-size: 230px;
+}
+
+html,
+body {
+	background-color: var(--apple-bg-color);
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	all: unset;
+	list-style: none;
+}
+
+img {
+	width: auto;
+	height: var(--item-size);
+}
+
+.carousel {
+	display: flex;
+}
+
+
+.item {
+	scroll-snap-align: start;
+	background-color: white;
+	flex: 0 0 auto;
+	display: grid;
+	place-content: center;
+	box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
+	overflow: hidden;
+	box-sizing: border-box;
+	border-radius: 18px;
+	width: var(--item-size);
+	padding: 30px;
+	position: relative;
+}
+
+.content-info {
+	text-align: center;
+	padding: 0 20px;
+	margin: 0 auto;
+}
+
+.addButton {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	opacity: 0.7;
+	transition: all 0.1 ease-in-out;
+  color: #000;
+}
+
+.addButton:hover {
+	opacity: 1;
+}
