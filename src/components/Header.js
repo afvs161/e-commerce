@@ -25,7 +25,7 @@ export default function Header({ categories }) {
 							)
 						})
 					) : (
-						<h2 style={{ color: "white" }}>No category found</h2>
+						<h6 style={{ color: "white" }}>No category found</h6>
 					)}
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import Loader from "../components/Loader"
 
 export default function Product({ addToCart }) {
@@ -7,6 +7,7 @@ export default function Product({ addToCart }) {
 	const [loading, setLoading] = useState(false)
 	const [bookmark, setBookmark] = useState(false)
 	const { id } = useParams()
+	const goBack = useNavigate()
 
 	const oldBookmarks = JSON.parse(localStorage.getItem("item"))
 	useEffect(() => {
@@ -119,7 +120,7 @@ export default function Product({ addToCart }) {
 						</button>
 						<p className="description">{description}</p>
 						<Link
-							to="/"
+							onClick={() => goBack(-1)}
 							className="btn grey darken-3"
 							style={{ marginTop: "20px" }}
 						>

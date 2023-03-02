@@ -92,6 +92,9 @@
 	.n-shadow {
 		line-height: 35px;
 	}
+	.myCardDetailsButton {
+		top: 0;
+	}
 }
 
 .cardWrapper {
@@ -191,4 +194,29 @@
 
 .rateBook a:hover {
 	color: #fddb3a;
+}
+
+.myCardDetailsButton {
+	color: #fddb3a;
+	position: absolute;
+	right: 10px;
+	bottom: 0;
+}
+
+.myCardDetailsA {
+	cursor: pointer;
+	opacity: 0.7;
+	transition: all 0.1s ease-in-out;
+	float: left;
+	margin-left: 10px;
+}
+
+.myCardDetailsA:hover {
+	opacity: 1;
+}
+
+.shopping-card__price {
+	max-width: 120px;
+	display: flex;
+	/* justify-content: space-between; */
 }

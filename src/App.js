@@ -127,7 +127,10 @@ export default function App() {
 								path="/product/:id"
 								element={<Product addToCart={addToCart} />}
 							/>
-							<Route path="/saveds" element={<Saveds />} />
+							<Route
+								path="/saveds"
+								element={<Saveds addToCart={addToCart} />}
+							/>
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					)}
