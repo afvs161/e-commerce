@@ -11,6 +11,7 @@ import Category from "./pages/Category"
 import ErrorPage from "./pages/ErrorPage"
 import Home from "./pages/Home"
 import Product from "./pages/Product"
+import Saveds from "./pages/Saveds"
 
 export default function App() {
 	const [categories, setCategories] = useState([])
@@ -96,7 +97,7 @@ export default function App() {
 					<i className="material-icons">shopping_cart</i>
 				</Link>
 				<Header categories={categories} />
-				<div className="container">
+				<div className="container" style={{ margin: "5px auto" }}>
 					{loading ? (
 						<Loader />
 					) : (
@@ -126,6 +127,7 @@ export default function App() {
 								path="/product/:id"
 								element={<Product addToCart={addToCart} />}
 							/>
+							<Route path="/saveds" element={<Saveds />} />
 							<Route path="*" element={<ErrorPage />} />
 						</Routes>
 					)}
