@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Loader from "./components/Loader"
@@ -37,9 +39,9 @@ export default function App() {
 	}, [])
 
 	const addToCart = (id, title, price, category, description, image) => {
-		let itemIndex = cart.filter((el) => el.id === id)
-		if (itemIndex.length) {
-			itemIndex[0].quantity++
+		let itemIndex = cart.filter((el) => el.id == id)[0]
+		if (itemIndex) {
+			itemIndex.quantity++
 		} else {
 			let quantity = 1
 			let newItem = {
@@ -53,20 +55,48 @@ export default function App() {
 			}
 			setCart([...cart, newItem])
 		}
+		toast("Good was successfully added to basket!", {
+			toastId: "success1",
+			theme: "dark",
+		})
 	}
 
 	let totalPrice = cart.reduce((sum, el) => {
 		return sum + el.price * el.quantity
 	}, 0)
 
+	const incQ = (id) => {
+		let itemIndex = cart.filter((el) => el.id === id)[0]
+		itemIndex.quantity++
+		setCart([...cart], itemIndex)
+	}
+
+	const decQ = (id) => {
+		let itemIndex = cart.filter((el) => el.id === id)[0]
+		if (itemIndex.quantity > 1) {
+			itemIndex.quantity--
+		}
+		setCart([...cart], itemIndex)
+	}
+
+	const del = (id) => {
+		let itemIndex = cart.filter((el) => el.id !== id)
+		setCart([...itemIndex])
+		toast.error("Good was successfully removed to basket!", {
+			toastId: "success1",
+			theme: "dark",
+		})
+	}
+
 	return (
 		<BrowserRouter>
+			<ToastContainer position="top-right" autoClose={3000} />
 			<div className="my-content">
 				<Link to="/cart" className="toggleModal">
 					<i className="material-icons">shopping_cart</i>
 				</Link>
 				<Header categories={categories} />
-				<div className="container" style={{ padding: "1rem 0" }}>
+				<div className="container">
 					{loading ? (
 						<Loader />
 					) : (
@@ -78,7 +108,15 @@ export default function App() {
 							<Route path="/about" element={<About />} />
 							<Route
 								path="/cart"
-								element={<Cart cart={cart} totalPrice={totalPrice} />}
+								element={
+									<Cart
+										cart={cart}
+										totalPrice={totalPrice}
+										incQ={incQ}
+										decQ={decQ}
+										del={del}
+									/>
+								}
 							/>
 							<Route
 								path="/category/:id"

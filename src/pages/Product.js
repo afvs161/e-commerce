@@ -31,7 +31,7 @@ export default function Product({ addToCart }) {
 					</div>
 					<div className="info col m6 s12">
 						<h1>{title}</h1>
-						<p className="sku">Артикул: aru1303</p>
+						{/* <p className="sku">Артикул: aru1303</p> */}
 						<h2 className="price">£{price}</h2>
 						<button
 							className="cart grey darken-3"

@@ -88,9 +88,14 @@
 
 .n-shadow {
 	background: #272727 !important;
-	min-height: 50px;
-	line-height: 35px;
 	padding-top: 20px;
+	line-height: 20px;
+}
+
+@media (min-width: 650px) {
+	.n-shadow {
+		line-height: 35px;
+	}
 }
 
 .cardWrapper {
@@ -131,4 +136,21 @@
 
 .toggleModal:hover {
 	box-shadow: 2px 4px 5px rgb(0 0 0 / 80%);
+}
+
+.myCardDetails {
+	position: relative;
+}
+
+.buttonWrapper {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	display: flex;
+	justify-content: space-around;
+	width: 110px;
+}
+
+.buttonWrapper button {
+	padding: 0 10px;
 }
