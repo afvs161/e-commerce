@@ -8,6 +8,7 @@ import "./css/icons.css"
 import "./css/index.css"
 import "./css/materialize.css"
 import "./css/product.css"
+import "./css/review.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(

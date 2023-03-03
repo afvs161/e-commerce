@@ -33,11 +33,41 @@ export default function App() {
 
 		fetch("https://fakestoreapi.com/products")
 			.then((res) => res.json())
-			.then((json) => setProducts(json))
+			.then((json) => {
+				let mass = [...json]
+				setProducts(
+					mass.map((s, idx) => {
+						return {
+							...s,
+							comments: [],
+						}
+					})
+				)
+			})
 			.catch((err) => {
 				console.error(err)
 			})
 	}, [])
+
+	const getComments = (id, name, comment, star) => {
+		let mass = products.map((el, idx) => {
+			if (el.id == id) {
+				return {
+					...el,
+					comments: [
+						...el.comments,
+						{ id: Date.now(), name, comment, rate: star },
+					],
+				}
+			} else {
+				return el
+			}
+		})
+		setProducts(mass)
+		toast("Review was sent. Thank you for your time.", {
+			toastId: "success1",
+		})
+	}
 
 	const addToCart = (id, title, price, category, description, image) => {
 		let itemIndex = cart.filter((el) => el.id == id)[0]
@@ -58,7 +88,6 @@ export default function App() {
 		}
 		toast("Good was successfully added to basket!", {
 			toastId: "success1",
-			theme: "dark",
 		})
 	}
 
@@ -85,13 +114,12 @@ export default function App() {
 		setCart([...itemIndex])
 		toast.error("Good was successfully removed to basket!", {
 			toastId: "success1",
-			theme: "dark",
 		})
 	}
 
 	return (
 		<BrowserRouter>
-			<ToastContainer position="top-right" autoClose={3000} />
+			<ToastContainer position="top-right" theme="dark" autoClose={3000} />
 			<div className="my-content">
 				<Link to="/cart" className="toggleModal">
 					<i className="material-icons">shopping_cart</i>
@@ -125,7 +153,9 @@ export default function App() {
 							/>
 							<Route
 								path="/product/:id"
-								element={<Product addToCart={addToCart} />}
+								element={
+									<Product getComments={getComments} addToCart={addToCart} />
+								}
 							/>
 							<Route
 								path="/saveds"

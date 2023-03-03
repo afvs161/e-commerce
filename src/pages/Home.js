@@ -5,7 +5,12 @@ export default function Home({ products, addToCart }) {
 		<div className="cardWrapper">
 			{products.length ? (
 				products.map((product) => {
-					return <CardItem addToCart={addToCart} {...product} />
+					return (
+						<CardItem
+							addToCart={addToCart}
+							{...product}
+						/>
+					)
 				})
 			) : (
 				<h2>No products found</h2>
