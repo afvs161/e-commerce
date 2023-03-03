@@ -90,9 +90,36 @@
 	border-radius: 8px !important;
 	border: none !important;
 	box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5) !important;
+	background-color: #f5f5f5 !important;
 }
 
 .firstname:focus {
 	border-bottom: 0 !important;
 	box-shadow: 0 !important;
+}
+/*  */
+.testimonial {
+	background: #272727;
+	box-shadow: 2px 4px 12px rgba(0, 0, 0, 8%);
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+.quote {
+	font-size: 1.1rem;
+	color: #f2f2f2;
+	font-family: halyard-text, sans-serif;
+	font-weight: 100;
+	font-style: normal;
+	letter-spacing: 0.02rem;
+}
+.attribution {
+	color: #d78118;
+	text-transform: uppercase;
+	letter-spacing: 0.05rem;
+	padding-top: 15px;
+	font-family: poppins, sans-serif;
+	font-weight: 700;
+	font-size: 0.8rem;
+	font-style: normal;
 }

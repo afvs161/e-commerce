@@ -55,13 +55,13 @@
 }
 
 .navMenu a:nth-child(2):hover ~ .dot {
-	transform: translateX(125px);
+	transform: translateX(120px);
 	transition: all 0.2s ease-in-out;
 	opacity: 1;
 }
 
 .navMenu a:nth-child(3):hover ~ .dot {
-	transform: translateX(215px);
+	transform: translateX(210px);
 	transition: all 0.2s ease-in-out;
 	opacity: 1;
 }

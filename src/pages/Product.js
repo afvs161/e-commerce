@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 import Loader from "../components/Loader"
 
-export default function Product({ addToCart, getComments }) {
-	const [product, setProduct] = useState({})
+export default function Product({ addToCart }) {
+	const [product, setProduct] = useState({ comments: [] })
 	const [loading, setLoading] = useState(false)
 	const [bookmark, setBookmark] = useState(false)
 	const [error, setError] = useState(false)
@@ -14,6 +15,7 @@ export default function Product({ addToCart, getComments }) {
 	const { id } = useParams()
 
 	const oldBookmarks = JSON.parse(localStorage.getItem("item"))
+
 	useEffect(() => {
 		if (oldBookmarks) {
 			const bookmarkId = oldBookmarks.filter((el) => el.id == id)[0]
@@ -26,13 +28,15 @@ export default function Product({ addToCart, getComments }) {
 		fetch(`https://fakestoreapi.com/products/${id}`)
 			.then((res) => res.json())
 			.then((json) => {
-				setProduct(json)
+				setProduct({ ...json, comments: [] })
+
 				setLoading(false)
 			})
 			.catch((err) => console.error(err))
 	}, [id])
 
-	const { title, price, category, description, image, rating } = product
+	const { title, price, category, description, image, rating, comments } =
+		product
 
 	const addToBookmark = () => {
 		if (bookmark) {
@@ -50,6 +54,7 @@ export default function Product({ addToCart, getComments }) {
 				description,
 				image,
 				rating: { rate: rating.rate, count: rating.count },
+				comments,
 			}
 
 			if (oldBookmarks) {
@@ -72,7 +77,23 @@ export default function Product({ addToCart, getComments }) {
 	const sendComment = (e) => {
 		e.preventDefault()
 		if (comment.length && name.length >= 3 && star) {
-			getComments(id, name, comment, star)
+			function getObj() {
+				if (product.id == id) {
+					return {
+						...product,
+						comments: [
+							...product.comments,
+							{ id: Date.now(), name, comment, rate: star },
+						],
+					}
+				} else {
+					return product
+				}
+			}
+			setProduct(getObj)
+			toast("Review was sent. Thank you for your time.", {
+				toastId: "success1",
+			})
 			setComment("")
 			setName("")
 			setStar(0)
@@ -97,26 +118,29 @@ export default function Product({ addToCart, getComments }) {
 							<h2 className="price">£{price}</h2>
 							<div className="rateBook">
 								{rating && (
-									<div className="rating">
-										<div
-											className="rating-upper"
-											style={{
-												width: ((rating.rate / 5) * 100).toFixed() + "%",
-											}}
-										>
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
+									<div style={{ height: "25px", lineHeight: "25px" }}>
+										<div className="rating">
+											<div
+												className="rating-upper"
+												style={{
+													width: ((rating.rate / 5) * 100).toFixed() + "%",
+												}}
+											>
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+											</div>
+											<div className="rating-lower">
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+												<span>★</span>
+											</div>
 										</div>
-										<div className="rating-lower">
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
-											<span>★</span>
-										</div>
+										<p>{rating.rate} out of 5</p>
 									</div>
 								)}
 								<Link
@@ -124,7 +148,7 @@ export default function Product({ addToCart, getComments }) {
 									style={{ color: bookmark ? "#fddb3a" : "#272727" }}
 								>
 									<i className="material-icons">
-										{bookmark ? "bookmark" : "bookmark_border"}
+										{bookmark ? "favorite" : "favorite_border"}
 									</i>
 								</Link>
 							</div>
@@ -148,7 +172,10 @@ export default function Product({ addToCart, getComments }) {
 					</div>
 					<form style={{ margin: "20px 0" }} onSubmit={sendComment}>
 						<div className="input-container">
-							<div className="error" style={{ display: error ? "block" : "none" }}>
+							<div
+								className="error"
+								style={{ display: error ? "block" : "none" }}
+							>
 								Your review must be legible! Try again!
 							</div>
 							<div className="names">
@@ -191,6 +218,50 @@ export default function Product({ addToCart, getComments }) {
 									<button className="btn grey darken-3">Submit Review</button>
 								</div>
 							</div>
+							<ul
+								style={{
+									marginTop: "20px",
+									textAlign: "center",
+									width: "100%",
+								}}
+							>
+								{comments.length ? (
+									comments.map((comment) => {
+										return (
+											<li>
+												<div className="testimonial">
+													<p className="quote">{comment.comment}</p>
+													<div className="rating" style={{ margin: "0 auto" }}>
+														<div
+															className="rating-upper"
+															style={{
+																width:
+																	((comment.rate / 5) * 100).toFixed() + "%",
+															}}
+														>
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+														</div>
+														<div className="rating-lower">
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+															<span>★</span>
+														</div>
+													</div>
+													<p className="attribution">- {comment.name}</p>
+												</div>
+											</li>
+										)
+									})
+								) : (
+									<h2>Be first to comment</h2>
+								)}
+							</ul>
 						</div>
 					</form>
 				</>

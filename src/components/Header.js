@@ -7,7 +7,7 @@ export default function Header({ categories }) {
 				<div className="navMenu">
 					<nobr>
 						<Link to="/">Home</Link>
-						<Link to="/saveds">Saveds</Link>
+						<Link to="/likeds">Likeds</Link>
 						<Link to="/about">About</Link>
 						<div className="dot"></div>
 					</nobr>

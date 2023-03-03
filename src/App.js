@@ -33,41 +33,11 @@ export default function App() {
 
 		fetch("https://fakestoreapi.com/products")
 			.then((res) => res.json())
-			.then((json) => {
-				let mass = [...json]
-				setProducts(
-					mass.map((s, idx) => {
-						return {
-							...s,
-							comments: [],
-						}
-					})
-				)
-			})
+			.then((json) => setProducts(json))
 			.catch((err) => {
 				console.error(err)
 			})
 	}, [])
-
-	const getComments = (id, name, comment, star) => {
-		let mass = products.map((el, idx) => {
-			if (el.id == id) {
-				return {
-					...el,
-					comments: [
-						...el.comments,
-						{ id: Date.now(), name, comment, rate: star },
-					],
-				}
-			} else {
-				return el
-			}
-		})
-		setProducts(mass)
-		toast("Review was sent. Thank you for your time.", {
-			toastId: "success1",
-		})
-	}
 
 	const addToCart = (id, title, price, category, description, image) => {
 		let itemIndex = cart.filter((el) => el.id == id)[0]
@@ -153,12 +123,10 @@ export default function App() {
 							/>
 							<Route
 								path="/product/:id"
-								element={
-									<Product getComments={getComments} addToCart={addToCart} />
-								}
+								element={<Product addToCart={addToCart} />}
 							/>
 							<Route
-								path="/saveds"
+								path="/likeds"
 								element={<Saveds addToCart={addToCart} />}
 							/>
 							<Route path="*" element={<ErrorPage />} />

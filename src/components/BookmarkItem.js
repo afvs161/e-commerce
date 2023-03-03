@@ -39,7 +39,7 @@ export default function BookmarkItem({
 						onClick={() => removeFromBookmark(id)}
 						className="myCardDetailsButton"
 					>
-						<i className="material-icons">bookmark</i>
+						<i className="material-icons">favorite</i>
 					</Link>
 				</div>
 			</div>
