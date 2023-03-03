@@ -6,7 +6,10 @@ export default function Saveds({ addToCart }) {
 	const [bookmarks, setBookmarks] = useState([])
 
 	useEffect(() => {
-		setBookmarks(JSON.parse(localStorage.getItem("item")))
+		const items = JSON.parse(localStorage.getItem("item"))
+		if (items) {
+			setBookmarks(items)
+		}
 	}, [bookmarks])
 
 	const removeFromBookmark = (id) => {
