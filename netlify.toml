@@ -1,0 +1,11 @@
+# Settings in the [build] context are global and are applied to all contexts
+# unless otherwise overridden by more specific contexts.
+[build]
+  command = "npm run build"
+  publish="path-to-react-app/build"
+  base = "path-to-react-app"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
